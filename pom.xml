@@ -6,14 +6,16 @@
     <version>1.0-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <javafx.version>21.0.5</javafx.version>
+        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>21.0.5</version>
+            <version>${javafx.version}</version>
         </dependency>
     </dependencies>
     <build>
@@ -23,20 +25,27 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <release>11</release>
+                    <release>17</release>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.6</version>
+                <version>${javafx.maven.plugin.version}</version>
                 <executions>
                     <execution>
                         <!-- Default configuration for running -->
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.dein.App</mainClass>
+                            <mainClass>org.dein/org.dein.App</mainClass>
+                            <runtimePathOption>MODULEPATH</runtimePathOption>
+                            <commandlineArgs>--enable-native-access=javafx.graphics</commandlineArgs>
+                            <options>
+                                <option>--enable-native-access=javafx.graphics</option>
+                                <option>--add-opens</option>
+                                <option>javafx.graphics/com.sun.glass.utils=ALL-UNNAMED</option>
+                            </options>
                         </configuration>
                     </execution>
                 </executions>
